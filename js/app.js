@@ -1,12 +1,12 @@
 /* =========================================================
-   まなびノート（仮） デモアプリ
+   えいごノート（仮） デモアプリ
    - ハッシュルーティングの SPA（ビルド不要）
    - ログイン・契約・視聴進捗はすべて localStorage のモック
    - 本番ではここを 認証基盤 / Stripe / DB に置き換える
    ========================================================= */
 (() => {
   const { SUBJECTS, GRADES, VIDEOS, PLANS, TRIAL_DAYS, MAX_CHILDREN } = window.DEMO_DATA;
-  const KEY = 'manabi-demo-v1';
+  const KEY = 'eigo-demo-v2';
   const CHILD_COLORS = ['#2f6fb0', '#c8553d', '#3a8a5c'];
   const DAY = 86400000;
 
@@ -200,7 +200,7 @@
     }
     $('#header').innerHTML = `
       <div class="container site-header__inner">
-        <a class="logo" href="#/${state.user ? 'library' : ''}"><span class="logo__mark" aria-hidden="true"></span>まなびノート<small>（仮）</small></a>
+        <a class="logo" href="#/${state.user ? 'library' : ''}"><span class="logo__mark" aria-hidden="true"></span>えいごノート<small>（仮）</small></a>
         <button class="nav__toggle" type="button" data-action="toggle-nav" aria-expanded="false" aria-controls="gnav">メニュー</button>
         <nav class="nav" id="gnav" aria-label="グローバル">${nav}</nav>
       </div>`;
@@ -213,7 +213,7 @@
           <a href="#/legal/privacy">プライバシーポリシー</a>
           <a href="#/?s=faq">よくある質問</a>
         </nav>
-        <small>© まなびノート（仮） ― デモ版</small>
+        <small>© えいごノート（仮） ― デモ版</small>
       </div>`;
   }
 
@@ -273,9 +273,9 @@
     <section class="hero">
       <div class="container hero__grid">
         <div>
-          <p class="eyebrow">小学1年生〜中学3年生の動画教材</p>
-          <h1><span class="nw">「わからない」を、</span><br><span class="nw"><em>10分で「わかった」</em>に。</span></h1>
-          <p class="hero__lead">学校の授業に合わせた単元別の動画で、つまずいたところをその日のうちに解決。ワークシートと学習記録で、おうちでの勉強が続く仕組みをつくります。</p>
+          <p class="eyebrow">小学1年生〜中学3年生の英語動画教材</p>
+          <h1><span class="nw">英語の「わからない」を、</span><br><span class="nw"><em>10分で「わかった」</em>に。</span></h1>
+          <p class="hero__lead">フォニックスから中学英文法まで、学年と単元ごとの動画で英語のつまずきをその日のうちに解決。聞いて、声に出して、ワークシートで書いて身につけます。</p>
           <div class="hero__cta">
             <a class="btn btn--primary btn--lg" href="#/signup">7日間無料で始める</a>
             <a class="btn btn--outline btn--lg" href="#/?s=samples">無料の動画を見てみる</a>
@@ -297,9 +297,9 @@
       <div class="container">
         <div class="section-head"><p class="eyebrow">FEATURES</p><h2>おうち学習が続く、4つのしくみ</h2></div>
         <div class="points">
-          <div class="point"><span class="point__no">01</span><h3>学年・教科・単元から探せる</h3><p>教科書の単元ごとに動画を用意。「今日の授業でわからなかったところ」をすぐに見つけられます。</p></div>
+          <div class="point"><span class="point__no">01</span><h3>学年・分野・単元から探せる</h3><p>フォニックス・単語・文法・リスニング・スピーキング・読み書きの6分野。「今日の英語の授業でわからなかったところ」をすぐに見つけられます。</p></div>
           <div class="point"><span class="point__no">02</span><h3>きょうだい3人まで、追加料金なし</h3><p>1つの契約で子どもを3人まで登録できます。視聴履歴や進み具合は、子どもごとに分けて記録されます。</p></div>
-          <div class="point"><span class="point__no">03</span><h3>動画のあとはワークシートで練習</h3><p>すべての動画に印刷できるワークシートが付いています。見るだけで終わらせず、手を動かして定着させます。</p></div>
+          <div class="point"><span class="point__no">03</span><h3>聞く・話す・書くで練習</h3><p>動画の音声をまねして声に出し、印刷できるワークシートで書いて練習。見るだけで終わらせず、使える英語として定着させます。</p></div>
           <div class="point"><span class="point__no">04</span><h3>保護者が学習の様子を見守れる</h3><p>どの単元をいつ見たか、どこまで進んだかを保護者用の画面で確認できます。</p></div>
         </div>
       </div>
@@ -307,10 +307,10 @@
 
     <section class="section" id="lineup">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">LINEUP</p><h2>教材ラインナップ</h2><p>学年と教科ごとの動画本数です（デモ用のサンプルデータ）。</p></div>
+        <div class="section-head"><p class="eyebrow">LINEUP</p><h2>教材ラインナップ</h2><p>学年と分野ごとの動画本数です（デモ用のサンプルデータ）。</p></div>
         <div class="timetable-wrap">
           <table class="timetable">
-            <thead><tr><th scope="col">教科</th>${GRADES.map((g) => `<th scope="col">${g.label}</th>`).join('')}</tr></thead>
+            <thead><tr><th scope="col">分野</th>${GRADES.map((g) => `<th scope="col">${g.label}</th>`).join('')}</tr></thead>
             <tbody>${SUBJECTS.map((s) => `<tr><th scope="row">${s.label}</th>${GRADES.map((g) => { const n = count(g.key, s.key); return `<td>${n ? n + '本' : '―'}</td>`; }).join('')}</tr>`).join('')}</tbody>
           </table>
         </div>
@@ -319,20 +319,20 @@
 
     <section class="section section--white" id="samples">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">FREE</p><h2>登録なしで見られる無料動画</h2><p>まずは実際の授業動画をご覧ください。</p></div>
+        <div class="section-head"><p class="eyebrow">FREE</p><h2>登録なしで見られる無料動画</h2><p>まずは実際の英語の授業動画をご覧ください。</p></div>
         <div class="grid">${free.map(vcard).join('')}</div>
       </div>
     </section>
 
     <section class="section" id="price">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">PRICE</p><h2>料金プラン</h2><p>どちらのプランも全学年・全教科が見放題。はじめの${TRIAL_DAYS}日間は無料です。</p></div>
+        <div class="section-head"><p class="eyebrow">PRICE</p><h2>料金プラン</h2><p>どちらのプランも全学年・全分野が見放題。はじめの${TRIAL_DAYS}日間は無料です。</p></div>
         <div class="plans">${PLANS.map((p) => `
           <div class="plan ${p.recommended ? 'plan--rec' : ''}">
             ${p.recommended ? '<span class="plan__flag">おすすめ</span>' : ''}
             <h3>${p.label}</h3>
             <p class="plan__price">${yen(p.price)}<small>（税込）／${p.unit}</small></p>
-            <ul><li>全学年・全教科の動画が見放題</li><li>ワークシートのダウンロード</li><li>子ども3人まで登録可能</li><li>${p.note}</li></ul>
+            <ul><li>全学年・全分野の英語動画が見放題</li><li>ワークシートのダウンロード</li><li>子ども3人まで登録可能</li><li>${p.note}</li></ul>
             <a class="btn ${p.recommended ? 'btn--primary' : 'btn--outline'} btn--block" href="#/signup?plan=${p.key}">${TRIAL_DAYS}日間無料で始める</a>
           </div>`).join('')}
         </div>
@@ -347,6 +347,7 @@
           <details><summary>きょうだいで使えますか？</summary><p>1つの契約で子どもを3人まで登録できます。子どもごとに学習記録が分かれます。</p></details>
           <details><summary>どの端末で見られますか？</summary><p>パソコン・タブレット・スマートフォンのブラウザで視聴できます。学校で配られた端末でもご利用いただけます。</p></details>
           <details><summary>解約はどこからできますか？</summary><p>ログイン後の「アカウント」ページからいつでも手続きできます。解約後も、お支払い済みの期間の最後まで視聴できます。</p></details>
+          <details><summary>英語がまったく初めてでも大丈夫ですか？</summary><p>大丈夫です。小学1年生向けのアルファベットやフォニックスから始められるので、学年にかかわらず自分のレベルに合った動画を選べます。</p></details>
           <details><summary>支払い方法は何がありますか？</summary><p>クレジットカード（Visa / Mastercard / JCB / American Express）に対応しています。</p></details>
         </div>
       </div>
@@ -452,7 +453,7 @@
             ${p.recommended ? '<span class="plan__flag">おすすめ</span>' : ''}
             <h3>${p.label}</h3>
             <p class="plan__price">${yen(p.price)}<small>（税込）／${p.unit}</small></p>
-            <ul><li>全学年・全教科の動画が見放題</li><li>子ども3人まで登録可能</li><li>${p.note}</li></ul>
+            <ul><li>全学年・全分野の英語動画が見放題</li><li>子ども3人まで登録可能</li><li>${p.note}</li></ul>
           </label>`).join('')}
         </div>
         <div class="row-actions" style="margin-top:var(--space-6)"><button class="btn btn--primary btn--lg" type="submit">申込み内容の確認へ</button></div>
@@ -476,7 +477,7 @@
           <div class="terms-box">
             <h3>ご契約内容（最終確認）</h3>
             <dl class="dl">
-              <dt>サービス</dt><dd>まなびノート（仮） ${p.label}</dd>
+              <dt>サービス</dt><dd>えいごノート（仮） ${p.label}</dd>
               <dt>料金</dt><dd>${yen(p.price)}（税込）／${p.unit}</dd>
               <dt>無料期間</dt><dd>${trial ? `${fmtDate(now)} 〜 ${fmtDate(now + DAY * (TRIAL_DAYS - 1))}（${TRIAL_DAYS}日間）` : 'なし（ご利用済み）'}</dd>
               <dt>初回のお支払い</dt><dd>${fmtDate(firstCharge)}</dd>
@@ -570,13 +571,13 @@
           <button class="pill" type="button" data-action="filter" data-key="grade" data-val="all" aria-pressed="${f.grade === 'all'}">すべて</button>
           ${GRADES.map((g) => `<button class="pill" type="button" data-action="filter" data-key="grade" data-val="${g.key}" aria-pressed="${f.grade === g.key}">${g.label}</button>`).join('')}
         </div>
-        <div class="filters__row"><span class="filters__label">教科</span>
+        <div class="filters__row"><span class="filters__label">分野</span>
           <button class="pill" type="button" data-action="filter" data-key="subject" data-val="all" aria-pressed="${f.subject === 'all'}">すべて</button>
           ${SUBJECTS.map((s) => `<button class="pill" type="button" data-action="filter" data-key="subject" data-val="${s.key}" aria-pressed="${f.subject === s.key}">${s.label}</button>`).join('')}
           <div class="search" style="margin-left:auto">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
             <label class="visually-hidden" for="q">単元名・キーワードで検索</label>
-            <input class="input" id="q" type="search" placeholder="単元名・キーワード" value="${esc(f.q)}" data-input="search">
+            <input class="input" id="q" type="search" placeholder="単元名・英語のキーワード" value="${esc(f.q)}" data-input="search">
           </div>
         </div>
       </div>
@@ -592,7 +593,7 @@
       (f.subject === 'all' || v.subject === f.subject) &&
       (!q || (v.title + v.unit + subj(v.subject).label).toLowerCase().includes(q)));
     if (!list.length) {
-      return `<div class="empty"><h2>条件に合う動画が見つかりませんでした</h2><p>学年や教科の条件を変えるか、別のキーワードで探してみてください。</p><button class="btn btn--outline" type="button" data-action="filter-reset">条件をリセット</button></div>`;
+      return `<div class="empty"><h2>条件に合う動画が見つかりませんでした</h2><p>学年や分野の条件を変えるか、別のキーワードで探してみてください。</p><button class="btn btn--outline" type="button" data-action="filter-reset">条件をリセット</button></div>`;
     }
     return `<p style="font-size:var(--text-sm);color:var(--color-ink-sub);margin-bottom:var(--space-4)">${list.length}本の動画</p><div class="grid">${list.map(vcard).join('')}</div>`;
   }
@@ -674,7 +675,7 @@
         <div class="stat"><p class="stat__label">連続学習日数</p><p class="stat__value">${streak}<small>日</small></p></div>
       </div>
       <div class="card">
-        <h2>${grade(c.grade).label}の教科別の進み具合</h2>
+        <h2>${grade(c.grade).label}の分野別の進み具合</h2>
         <div class="subj-bars">${SUBJECTS.map((s) => {
           const total = gradeVideos.filter((v) => v.subject === s.key).length;
           const n = gradeVideos.filter((v) => v.subject === s.key && (prog(c.id, v.id) || {}).done).length;
@@ -826,7 +827,7 @@
           <div class="field"><label for="av-title">タイトル<span class="req">必須</span></label><input class="input" id="av-title" name="title" required></div>
           <div class="form-row">
             <div class="field"><label for="av-grade">学年<span class="req">必須</span></label><select class="select" id="av-grade" name="grade" required><option value="">選択</option>${GRADES.map((g) => `<option value="${g.key}">${g.label}</option>`).join('')}</select></div>
-            <div class="field"><label for="av-subj">教科<span class="req">必須</span></label><select class="select" id="av-subj" name="subject" required><option value="">選択</option>${SUBJECTS.map((s) => `<option value="${s.key}">${s.label}</option>`).join('')}</select></div>
+            <div class="field"><label for="av-subj">分野<span class="req">必須</span></label><select class="select" id="av-subj" name="subject" required><option value="">選択</option>${SUBJECTS.map((s) => `<option value="${s.key}">${s.label}</option>`).join('')}</select></div>
           </div>
           <div class="form-row">
             <div class="field"><label for="av-unit">単元名<span class="req">必須</span></label><input class="input" id="av-unit" name="unit" required></div>
@@ -845,7 +846,7 @@
       </div>
       <div class="card">
         <h2>登録済みの動画<small style="font-size:var(--text-xs);color:var(--color-ink-sub);font-weight:500;margin-left:8px">${list.length}本</small></h2>
-        <div class="table-wrap"><table class="table"><thead><tr><th>学年</th><th>教科</th><th>タイトル</th><th>Vimeo ID</th><th>公開</th><th><span class="visually-hidden">操作</span></th></tr></thead><tbody>
+        <div class="table-wrap"><table class="table"><thead><tr><th>学年</th><th>分野</th><th>タイトル</th><th>Vimeo ID</th><th>公開</th><th><span class="visually-hidden">操作</span></th></tr></thead><tbody>
           ${list.slice().reverse().map((v) => `<tr><td>${grade(v.grade).label}</td><td>${seal(v.subject)}</td><td class="wrap"><a href="#/watch/${v.id}">${esc(v.title)}</a></td><td>${esc(v.vimeoId)}</td><td>${v.free ? '<span class="badge badge--free">無料</span>' : '<span class="badge badge--lock">会員限定</span>'}</td>
             <td>${v.custom ? `<button class="link-btn link-btn--danger" type="button" data-action="delete-video" data-id="${v.id}">削除</button>` : '<button class="link-btn" type="button" data-action="toast" data-msg="デモ：編集画面が開きます">編集</button>'}</td></tr>`).join('')}
         </tbody></table></div>
@@ -1028,7 +1029,7 @@
       const d = formData(form);
       if (!d.title.trim()) return formError(form, 'タイトルを入力してください。', 'title');
       if (!d.grade) return formError(form, '学年を選んでください。', 'grade');
-      if (!d.subject) return formError(form, '教科を選んでください。', 'subject');
+      if (!d.subject) return formError(form, '分野を選んでください。', 'subject');
       if (!d.unit.trim()) return formError(form, '単元名を入力してください。', 'unit');
       const id = parseVimeo(d.vimeo);
       if (!id) return formError(form, 'Vimeo の URL または動画 ID を確認してください。', 'vimeo');

@@ -1,5 +1,5 @@
 /* =========================================================
-   まなびノート（仮） デモ
+   えいごノート（仮） デモ
    コンセプト: 方眼ノートとインデックスシール
    ========================================================= */
 :root {
@@ -22,12 +22,13 @@
   --color-danger-soft: #fdeaea;
   --color-focus: #2b6cb0;
 
-  /* subject index colors */
-  --subj-jp: #c8553d;
-  --subj-math: #2f6fb0;
-  --subj-sci: #3a8a5c;
-  --subj-soc: #a8742a;
-  --subj-en: #7a5aa6;
+  /* 分野ごとのインデックス色 */
+  --cat-phonics: #c8553d;
+  --cat-vocab: #a8742a;
+  --cat-grammar: #2f6fb0;
+  --cat-listen: #3a8a5c;
+  --cat-speak: #7a5aa6;
+  --cat-read: #2b7385;
 
   /* type */
   --font-head: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
@@ -454,3 +455,4 @@ label.plan:has(input:focus-visible) { outline: 3px solid var(--color-focus); out
 @media (max-width: 360px) { .nw { white-space: normal; } }
 .side-item .thumb__grade, .side-item .thumb__time { display: none; }
 .side-item .thumb__done { top: 4px; right: 4px; padding: 0 4px; font-size: 10px; }
+.subj-bar .seal { justify-self: start; }
